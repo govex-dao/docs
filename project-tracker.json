@@ -1,0 +1,193 @@
+{
+  "entries": [
+    {
+      "date": "2025-12-29",
+      "tasks": [
+        "Go through all packages with claude"
+      ]
+    },
+    {
+      "date": "2025-12-30",
+      "tasks": [
+        "Proper indexing: check db cardinality - launchpad - DAO, proposal, swapping + Server API"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "tasks": [
+        "Keeper bots: coin registry, proposal state, launchpad cranking"
+      ]
+    },
+    {
+      "date": "2026-01-01",
+      "tasks": [
+        "Full e2e tests / git pipeline tests / linting / E2E tests complete coverage"
+      ]
+    },
+    {
+      "date": "2026-01-02",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-03",
+      "tasks": [
+        "Create: new raise, new DAO"
+      ]
+    },
+    {
+      "date": "2026-01-04",
+      "tasks": [
+        "Create: new proposal (AI help)"
+      ]
+    },
+    {
+      "date": "2026-01-05",
+      "tasks": [
+        "Trading UI: Graph (v1)"
+      ]
+    },
+    {
+      "date": "2026-01-06",
+      "tasks": [
+        "Trading UI: Swap (gRPC call / simulator), coin amounts"
+      ]
+    },
+    {
+      "date": "2026-01-07",
+      "tasks": [
+        "UI unhappy paths"
+      ]
+    },
+    {
+      "date": "2026-01-08",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-09",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-10",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document",
+        "DEX AGG'ing process start"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-11",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-12",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-13",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-14",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-15",
+      "tasks": [
+        "Go through entire code, prep for bug bounty line coverage, document"
+      ],
+      "ticket": "tickets/bug_bounty_plan.md"
+    },
+    {
+      "date": "2026-01-16",
+      "tasks": [
+        "Away"
+      ]
+    },
+    {
+      "date": "2026-01-17",
+      "tasks": [
+        "Away"
+      ]
+    },
+    {
+      "date": "2026-01-18",
+      "tasks": [
+        "Away"
+      ]
+    },
+    {
+      "date": "2026-01-19",
+      "tasks": [
+        "Sort out cloud deployment process"
+      ]
+    },
+    {
+      "date": "2026-01-20",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-21",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-22",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-23",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-24",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-25",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-26",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-27",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-28",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-29",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-30",
+      "tasks": []
+    },
+    {
+      "date": "2026-01-31",
+      "tasks": [
+        "LAUNCH"
+      ]
+    }
+  ]
+}
