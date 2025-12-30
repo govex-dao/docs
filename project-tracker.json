@@ -1,27 +1,9 @@
 {
   "entries": [
     {
-      "date": "2025-12-29",
-      "tasks": [
-        "Go through all packages with claude"
-      ]
-    },
-    {
-      "date": "2025-12-30",
-      "tasks": [
-        "Proper indexing: check db cardinality - launchpad - DAO, proposal, swapping + Server API"
-      ]
-    },
-    {
-      "date": "2025-12-31",
-      "tasks": [
-        "Keeper bots: coin registry, proposal state, launchpad cranking"
-      ]
-    },
-    {
       "date": "2026-01-01",
       "tasks": [
-        "Full e2e tests / git pipeline tests / linting / E2E tests complete coverage"
+        "Full e2e tests / git pipeline tests / per env constants go into packages using jinja?????? sdk is aware somehow??/ linting / E2E tests complete coverage"
       ]
     },
     {
