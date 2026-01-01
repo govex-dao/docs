@@ -9,7 +9,7 @@ A series exploring Move patterns developed for the Govex futarchy protocol.
 | 1 | [Atomic Intent](./01-atomic-intent.md) | Object Stealing / Parameter Injection | Security |
 | 2 | [Balance Wrappers](./02-balance-wrappers.md) | Type Explosion with N outcomes | Scaling |
 | 3 | [Iterative Hot Potato](./03-iterative-hot-potato.md) | Generic Loop Constraints | Move Limitations |
-| 4 | [Blank Coin Registry](./04-blank-coin-registry.md) | Runtime Coin Type Creation | Infrastructure |
+| 4 | [Blank Coins](./04-blank-coin-registry.md) | Runtime Coin Type Creation | Infrastructure |
 | 5 | [Registry-Validated Witness](./05-registry-validated-witness.md) | Dynamic Package Authorization | Authorization |
 | 6 | [Config Migration](./06-config-migration.md) | Zero-Downtime Schema Upgrades | Upgradability |
 | 7 | [Resource Request Composition](./07-resource-request-composition.md) | In-Flight Asset Staging | Composition |
