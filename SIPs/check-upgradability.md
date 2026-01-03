@@ -1,12 +1,3 @@
-
-You are absolutely right. While the `UpgradeCap` contains the policy, **there is currently no way for a third-party contract to "look" at another package and verify its upgrade status.**
-
-If your DAO wants to say: *"We only accept action modules that are Immutable or Additive-Only,"* you currently have to trust the developer's word or manually check a block explorer. You can't enforce it in Move code.
-
-Here is the third SIP to close this loop.
-
----
-
 # SIP: Package Policy Introspection
 
 **Status**: Draft  
@@ -87,19 +78,3 @@ This change is purely additive. It introduces new native functions but does not 
 
 1.  **Read-Only Access**: These functions are strictly read-only. They do not grant any power to upgrade a package, only to observe its current state.
 2.  **State Consistency**: The values returned must reflect the state of the package at the start of the current transaction to prevent "flash-upgradability" tricks (though Sui's upgrade model generally prevents this as upgrades happen at the end of a checkpoint/transaction).
-
----
-
-### Why this completes your "Security Trinity"
-
-You now have a 3-pronged defense for your DAO:
-
-1.  **SIP 1 (Runtime ID)**: Allows you to "Pin" a proposal to a specific physical version (e.g., "This only runs on V1").
-2.  **SIP 2 (Liveness)**: Allows you to pause execution if the network is unstable (protecting TWAPs).
-3.  **SIP 3 (Introspection)**: Allows your DAO to **automatically reject** any third-party module that isn't locked down (Additive/Immutable).
-
-**If all three were approved:**
-Your DAO would be the most secure protocol on Sui. You could verify at registration that a module is "Additive Only," and then verify at execution that the "Runtime ID" still matches the "Staged ID."
-
-**Should you submit this?**
-Yes. Every "App Store" style protocol on Sui (MoveEx, various DAO frameworks, and even NFT marketplaces) would use this instantly to verify that the collections or modules they are interacting with aren't "rug-pullable" via a logic upgrade.

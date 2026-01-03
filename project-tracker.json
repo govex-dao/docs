@@ -1,22 +1,11 @@
 {
   "entries": [
     {
-      "date": "2026-01-01",
-      "tasks": [
-        "Full e2e tests / git pipeline tests / per env constants go into packages using jinja?????? sdk is aware somehow??/ linting / E2E tests complete coverage",
-        "ACTION_INDEXING_ARCHITECTURE.md and GENERIC_ACTION_EVENTS_PLAN.md",
-        "purge CoinMetadata everywhere it is used. search across all repos, it is used a lot still",
-        "investigate but i think for security all action but be in immutable packages??? idk maybe not. so see if i have to seperate all actions module out from logic packages. as prob want logic stuf to stay upgradeable?? so idk if the idea of an action version even makes sense",
-      ]
-    },
-    {
-      "date": "2026-01-02",
-      "tasks": []
-    },
-    {
       "date": "2026-01-03",
       "tasks": [
-        "Create: new raise, new DAO"
+        "Full e2e tests / git pipeline tests / per env constants go into packages using jinja?????? sdk is aware somehow?? deepbook may have a pattern for this/ linting / E2E tests complete coverage",
+        "Create: new raise, new DAO",
+        "CLI tool path and usage cleaned up"
       ]
     },
     {
