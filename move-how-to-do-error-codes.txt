@@ -1,0 +1,95 @@
+
+The way Move handles error codes is currently evolving from "simple constants" to "structured package-level diagnostics." 
+
+To answer your specific questions: **Yes, a shared module is becoming the standard for large frameworks**, but there are technical constraints regarding "bytes" vs "numbers" that you need to navigate.
+
+Here is the breakdown of the leading patterns in 2025/2026 for Sui Move error handling:
+
+---
+
+### 1. The "Errors" Module Pattern (Shared per Package)
+Instead of defining `const EWrongAmount` in every module, large frameworks now use a central `errors.move` or `constants.move` module within the package.
+
+**Why?**
+*   **Consistency:** Avoids `EUnauthorized` being `0` in one module and `4` in another.
+*   **Indexer Friendly:** Frontends can download one file and generate a full error-mapping JSON.
+
+**The Implementation:**
+```move
+module account_protocol::errors {
+    // Group codes by sub-system to avoid collisions
+    // 100-199: Vault Errors
+    public fun vault_insufficient_balance(): u64 { 101 }
+    public fun vault_not_found(): u64 { 102 }
+
+    // 200-299: Auth Errors
+    public fun auth_not_member(): u64 { 201 }
+}
+```
+*Note: We use `public fun` instead of `public const` because constants cannot be exported across modules in Move.*
+
+---
+
+### 2. Bytes vs. Numbers (The "Human Readable" Debate)
+Technically, Move's `abort` and `assert!` statements **only accept `u64`**. You cannot do `abort b"INSUFFICIENT_FUNDS"`.
+
+However, the "Leading Way" to handle human-readable explanations is the **Mapping Pattern**.
+
+#### The Old Way (Opaque):
+`assert!(balance >= amount, 401);`
+*Result: User sees "Move Abort 401 in Module X".*
+
+#### The Modern Way (Self-Documenting):
+Use a naming convention in a central module that includes the "Tag" in the name, and rely on the **Source Verification** of the explorer to show the code.
+
+**But for the "Cutting Edge":**
+Developers are now using **Error Registry Functions**. If you want a human-readable explanation available *on-chain* (though it's rare to need it there), you do this:
+
+```move
+module account_protocol::error_config {
+    use std::string::String;
+
+    public fun get_explanation(code: u64): String {
+        if (code == 101) return b"The vault does not have enough funds for this spend".to_string();
+        if (code == 102) return b"The requested vault name does not exist".to_string();
+        b"Unknown error".to_string()
+    }
+}
+```
+
+---
+
+### 3. The Problem with the Shared Module: Circular Dependencies
+The reason many people **still** define errors inside the local module (like the code you shared) is to avoid **Circular Dependencies**.
+
+*   If `vault.move` needs `errors.move`.
+*   And `errors.move` needs a type defined in `vault.move` to explain the error.
+*   **Move will fail to compile.**
+
+**The Solution:**
+Keep the `errors.move` module "leaf-level." It should **not** import any other modules from your package. It should only contain `u64` return functions.
+
+---
+
+### 4. Summary: The "Pro" Setup for 2026
+
+If you are building a production framework today, follow this 3-step strategy:
+
+#### Step 1: Create a `package::errors` module.
+Use 4-digit codes where the first two digits indicate the module:
+*   `10xx` -> Account
+*   `11xx` -> Vault
+*   `12xx` -> Currency
+
+#### Step 2: Use "Functional" Error Names.
+Instead of `EWrongAmount`, use `amount_mismatch_in_vault()`. This makes the stack trace readable even without a string.
+
+#### Step 3: Use the `abort_code` in the UI.
+Since you are using the 3-layer pattern (which is very "Intent" heavy), your frontend should have a `errors.json` that maps:
+`"account_protocol::vault::1105": "Insufficient funds in the Treasury vault."`
+
+### Conclusion: Should you use Bytes?
+**No.** Keep the `u64` for the actual `abort`. Using bytes as error identifiers in Move is gas-expensive and goes against the VM's design. Use a **centralized Error Module with `u64` functions** and map those to human strings in your **off-chain Indexer/SDK**.
+
+**Recommendation for your current code:**
+Your current code defines errors locally (e.g., `const ENoReturn: u64 = 0;`). For a framework of this size, you should move these into a central `account_actions::error_codes` module to ensure that "Error 0" always means "No Return" across the entire suite.

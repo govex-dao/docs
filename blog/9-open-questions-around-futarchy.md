@@ -25,3 +25,5 @@ is it even realistic to
 9) Commitment issue hanson ( no incentive to price proposals reject accept differntly if can be recreated redacted a day later).
 Should have clutral more for core team to only sponsor a unique proposals. Not duplicate proposals within a shot time frame??
 
+10) Do teams have moral obligation to sponsor proposals to 0 twap threshold that are not attacks.
+
