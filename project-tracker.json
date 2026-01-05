@@ -5,7 +5,6 @@
       "tasks": [
         "deploy frontend",
         "Trading UI: Graph (v1)",
-        "Full e2e tests / git pipeline tests / per env constants go into packages using jinja?????? sdk is aware somehow?? deepbook may have a pattern for this/ linting / E2E tests complete coverage",
         "Trading UI: Swap (gRPC call / simulator), coin amounts"
       ]
     },
