@@ -1,14 +1,15 @@
-
-This is a formal draft for a Sui Improvement Proposal (SIP). You can use this text to open a discussion on the [Sui Forums](https://forums.sui.io/) or submit it to the [Sui SIP repository](https://github.com/sui-foundation/sips).
-
----
-
-# SIP: Exposing Runtime Physical Package ID
-
-**Status**: Draft  
-**Author**: [Your Name/Organization]  
-**Category**: Framework/Move  
-**Created**: 2024-05-20  
+|   SIP-Number | |
+|         ---: | :--- |
+|        Title | Exposing Runtime Physical Package ID |
+|  Description | Adds sui::package::current_package_id() to return the physical Object ID of the executing package, enabling version pinning for governance and security. |
+|       Author | Greshamscode, @92GC |
+|       Editor | <Leave this blank; it will be assigned by a SIP Editor> |
+|         Type | Standard |
+|     Category | Framework |
+|      Created | 2025-06-25 |
+| Comments-URI | |
+|       Status | |
+|     Requires | |
 
 ## Abstract
 
@@ -16,7 +17,7 @@ This SIP proposes adding a native function, `sui::package::current_package_id():
 
 ## Motivation
 
-Sui’s upgrade model is designed for seamless data continuity. When a package is upgraded from V1 to V2, objects created in V1 remain compatible with V2 because their `TypeName` remains anchored to the Original ID.
+Sui's upgrade model is designed for seamless data continuity. When a package is upgraded from V1 to V2, objects created in V1 remain compatible with V2 because their `TypeName` remains anchored to the Original ID.
 
 However, this "identity transparency" creates a security gap for protocols that rely on **Logic Continuity** or **BCS Determinism**, specifically:
 
@@ -33,9 +34,9 @@ We propose adding the following native function to the `sui::package` module:
 ```move
 module sui::package {
     /// Returns the physical Object ID of the package currently executing.
-    /// 
+    ///
     /// If called from a function in package 0xAAA (V1), returns 0xAAA.
-    /// If that package is upgraded to 0xBBB (V2), and the same function 
+    /// If that package is upgraded to 0xBBB (V2), and the same function
     /// is called in the context of V2, it returns 0xBBB.
     public native fun current_package_id(): address;
 }
@@ -52,9 +53,9 @@ With this primitive, a DAO can prevent "Upgrade Attacks":
 // At Staging Time
 public fun stage_proposal(action: Action, action_version: address) {
     // action_version is fetched via a call to the third-party module
-    let spec = ActionSpec { 
+    let spec = ActionSpec {
         data: bcs::to_bytes(&action),
-        pinned_version: action_version 
+        pinned_version: action_version
     };
     // ... store spec
 }
@@ -63,7 +64,7 @@ public fun stage_proposal(action: Action, action_version: address) {
 public fun execute_action(spec: ActionSpec) {
     // Ensure the code running NOW is the same code that was audited/staged
     assert!(sui::package::current_package_id() == spec.pinned_version, EWrongVersion);
-    
+
     // Proceed to deserialize BCS safely
     let action = bcs::new(spec.data);
     // ...
@@ -84,8 +85,17 @@ A native primitive provides **On-Chain Truth** that cannot be manipulated by the
 ### Why `sui::package` and not `std::type_name`?
 The concept of a "Physical Object ID" and "Package Upgrades" is specific to the Sui blockchain object model. The `std` library is intended to be platform-agnostic, whereas `sui::package` is the appropriate home for blockchain-specific deployment metadata.
 
-## Backward Compatibility
+## Backwards Compatibility
+
 This is a purely additive change. It does not modify existing `TypeName` behavior or break existing contracts.
+
+## Test Cases
+
+To be developed.
+
+## Reference Implementation
+
+To be developed.
 
 ## Security Considerations
 
@@ -94,3 +104,7 @@ Exposing the package ID actually **increases** security by enabling:
 - **Audit Enforcement**: Users can restrict their interactions to specific physical addresses that have been marked as "Audited" by a trusted registry.
 
 One minor consideration is that developers might use this to "brick" their own contracts if they incorrectly implement version checks, but this is a standard risk with any logic-controlling primitive.
+
+## Copyright
+
+Greshamscode 2025
