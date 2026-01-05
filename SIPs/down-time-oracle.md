@@ -1,75 +1,104 @@
 |   SIP-Number | |
 |         ---: | :--- |
 |        Title | On-Chain Liveness Oracle |
-|  Description | Introduces a sui::checkpoint module that acts as a trustless liveness oracle, enabling on-chain circuit breakers. |
+|  Description | Extends sui::clock to act as a trustless liveness oracle, enabling on-chain circuit breakers. |
 |       Author | Greshamscode, @92GC |
 |       Editor | <Leave this blank; it will be assigned by a SIP Editor> |
 |         Type | Standard |
 |     Category | Framework |
 |      Created | 2025-06-25 |
-| Comments-URI | |
-|       Status | |
+| Comments-URI | https://github.com/sui-foundation/sips/pull/59 |
+|       Status | Draft |
 |     Requires | |
 
 ## Abstract
 
-This proposal introduces a new, read-only system module, sui::checkpoint, that functions as a native liveness oracle. It exposes historical checkpoint data and a highly efficient function to get the largest time gap between consecutive checkpoints in a recent history window. This enables smart contracts to detect network stalls and act as trustless circuit breakers, removing the need for off-chain social consensus on network health.
+This proposal extends the existing `sui::clock` module to function as a native liveness oracle. It exposes two new functions: one to query the largest time gap between consecutive commits within a specified time range, and one to get the median commit gap in the history window. This enables smart contracts to detect network stalls relative to typical network behavior and act as trustless circuit breakers, removing the need for off-chain social consensus on network health.
 
 ## Motivation
 
-Currently, there is no way for a smart contract to programmatically determine if the Sui network has recently experienced significant downtime or a stall. This forces critical decisions about network health to rely on off-chain social consensus. This proposal introduces an on-chain, trustless liveness oracle. By providing a direct way to measure the largest time gap between recent checkpoints, it allows contracts to build in their own circuit breakers. TWAP functions should not be trusted if the chain has experienced significant down time. [Govex.ai](https://www.govex.ai/) a futarchy based DAO management platform on Sui would like to run it's TWAP over short time markets but does not want to risk a chain restart occuring during a short market, nor does it want to trust an admin with the power to invalidate markets.
+Currently, there is no way for a smart contract to programmatically determine if the Sui network has recently experienced significant downtime or a stall. This forces critical decisions about network health to rely on off-chain social consensus. This proposal introduces an on-chain, trustless liveness oracle.
+
+TWAP (Time-Weighted Average Price) functions should not be trusted if the chain has experienced significant downtime. [Govex.ai](https://www.govex.ai/), a futarchy-based DAO management platform on Sui, needs to run TWAPs over short-duration prediction markets. We cannot risk a chain stall occurring during a market, nor do we want to trust an admin with the power to invalidate markets.
+
+By comparing the maximum gap during a specific time period against the median (typical) gap, contracts can detect anomalies in a way that automatically adjusts to protocol upgrades and changing network conditions.
 
 ## Specification
 
-This SIP introduces a new native module, sui::checkpoint, with the following public functions:move
-module sui::checkpoint {
-```
-module sui::checkpoint 
-    /// Returns the sequence number of the most recently finalized checkpoint.
-    public native fun last_finalized_sequence_number(): u64;
-    /// Returns the consensus timestamp in milliseconds for the checkpoint with the
-    /// given `sequence_number`.
-    /// Returns `Some(timestamp)` if the checkpoint is within the protocol-defined
-    /// accessible history window, and `None` otherwise.
-    public native fun get_timestamp_ms(sequence_number: u64): option::Option<u64>;
-    /// Returns the sequence number of the oldest checkpoint available via `get_timestamp_ms`.
-    /// This allows contracts to discover the bounds of accessible history.
-    public native fun accessible_history_window_start(): u64;
+This SIP extends the existing `sui::clock` module with the following public functions:
+
+```move
+module sui::clock {
+    // ... existing functions ...
+
     /// Returns the largest time gap in milliseconds between any two consecutive
-    /// checkpoints within the defined history window. This serves as a direct
-    /// measure of recent network instability.
-    public native fun largest_checkpoint_gap_in_history_window(): u64;
-    /// Returns the largest time gap in milliseconds between any two consecutive
-    /// checkpoints `(Ck, Ck+1)` where `Ck.sequence_number >= start_sequence_number`
-    /// and `Ck+1.sequence_number <= last_finalized_sequence_number()`.
+    /// commits where both commits fall within the specified time range.
     ///
-    /// - If `start_sequence_number` is less than `accessible_history_window_start()`,
-    ///   this function returns `None` as the requested start is too old.
-    /// - If `start_sequence_number` is greater than `last_finalized_sequence_number()`,
-    ///   this function returns `None` as the start is invalid (e.g. in the future).
-    /// - If `start_sequence_number` is equal to `last_finalized_sequence_number()`,
-    ///   no gaps can be formed, so it returns `Some(0)`.
-    /// - Otherwise, it iterates through the relevant checkpoints, calculates all
-    ///   gaps `(timestamp(i+1) - timestamp(i))` for `i` from `start_sequence_number`
-    ///   to `last_finalized_sequence_number() - 1`, and returns `Some(max_gap)`.
-    ///   If any `get_timestamp_ms` call within the valid range unexpectedly returns `None`
-    ///   (which shouldn't happen for finalized, accessible checkpoints), this function
-    ///   would propagate the `None` or handle it as an internal error (implementation detail,
-    ///   but `None` is safer for the caller).
-    public native fun largest_checkpoint_gap_since_sequence_number(start_sequence_number: u64): option::Option<u64>;
+    /// - Returns `Some(max_gap)` if the range is valid and within accessible history
+    /// - Returns `None` if the range is invalid or extends beyond accessible history
+    public native fun largest_commit_gap_between(
+        start_timestamp_ms: u64,
+        end_timestamp_ms: u64
+    ): Option<u64>;
+
+    /// Returns the median time gap in milliseconds between consecutive commits
+    /// within the protocol-defined history window.
+    ///
+    /// This represents the "typical" commit gap and can be used as a baseline
+    /// to detect anomalies. The median is resistant to outliers - a single
+    /// large stall will not skew this value.
+    ///
+    /// Note: This value may be cached and updated at checkpoint boundaries
+    /// rather than computed live.
+    public native fun median_commit_gap_in_window(): u64;
+}
+```
+
+### Example Usage
+
+```move
+/// Circuit breaker check for a prediction market
+public fun is_market_valid(market_start: u64, market_end: u64): bool {
+    let max_gap = clock::largest_commit_gap_between(market_start, market_end);
+    let typical_gap = clock::median_commit_gap_in_window();
+
+    match (max_gap) {
+        Some(gap) => gap <= typical_gap * 100, // 100x typical = stall
+        None => false, // Invalid range
+    }
+}
 ```
 
 ## Rationale
 
-This functionality must be implemented as a native module within the Sui runtime. The Move VM's security model prohibits smart contracts from arbitrarily accessing the ledger's historical state.
+### Why Commit Timestamps (not Checkpoint Timestamps)
 
-The functions `get_timestamp_ms` and `last_finalized_sequence_number` are simple lookups into the node's existing checkpoint database.
+Per feedback from Mysten Labs: checkpoint construction and execution are asynchronous, so commit timestamps provide more accurate timing information.
 
-The `largest_checkpoint_gap_in_history_window` function, while seemingly complex, can be implemented with extreme efficiency at the native level using a "Sliding Window Maximum" algorithm. Instead of re-scanning millions of checkpoints, a validator maintains a specialized data structure (a double-ended queue) that tracks the largest gap. When a new checkpoint is added, only a few constant-time operations are needed to update this structure. Because older, smaller gaps can never become the maximum as the window slides forward, they are efficiently discarded from consideration. This ensures the largest gap is always pre-calculated and can be read instantly, making the function call fast and gas-efficient for smart contracts. The largest_checkpoint_gap_since_sequence_number(start_sequence_number: u64) function provides a more granular query. As it operates on a user-defined start point up to the present, it cannot rely on the same global pre-computation. Instead, it performs a linear scan over the requested checkpoint range [start_sequence_number, last_finalized_sequence_number()]. The computational cost is therefore proportional to the length of this range. Gas fees for this function will scale accordingly to prevent abuse."
+### Why Extend Clock (not a New Module)
+
+Adding these functions to the existing `sui::clock` module is cleaner than introducing a new `sui::checkpoint` module. The Clock object already represents time-related functionality.
+
+### Why Median (not EMA)
+
+We considered exponential moving averages (EMAs) as suggested by reviewers. However:
+
+1. **Intuitive**: "Typical gap" is easier to reason about than abstract α values (0.1, 0.01, 0.001)
+2. **Outlier resistant**: Median is not skewed by a single large stall, whereas EMAs are affected by spikes
+3. **Self-adjusting**: Like EMAs, median automatically adjusts to protocol upgrades that change commit intervals
+4. **Simpler crash recovery**: Median can be recomputed from the history window on startup; doesn't require maintaining complex state across crashes
+
+### Why a Time-Range Query
+
+A global "max gap in history" doesn't help our use case. We need to check: "Was there a stall during *this specific market's duration*?" Hence `largest_commit_gap_between(start, end)`.
+
+### Implementation Notes
+
+The `median_commit_gap_in_window()` function does not need to be computed live. Precomputing and caching at checkpoint boundaries is sufficient - "median as of recent checkpoint" works for detecting anomalies. This simplifies crash recovery: recompute once on startup from the bounded history window.
 
 ## Backwards Compatibility
 
-This proposal is a purely additive and non-breaking change. It introduces a new, self-contained module and does not alter any existing modules, functions, or data structures. No existing smart contracts will be affected.
+This proposal is purely additive. It extends an existing module with new functions and does not alter any existing functions or data structures. No existing smart contracts will be affected.
 
 ## Test Cases
 
@@ -81,14 +110,14 @@ A reference implementation will be developed by core engineers if the SIP is app
 
 ## Security Considerations
 
-1.  **Denial-of-Service (DoS) via Resource Exhaustion:** A malicious actor could repeatedly call `get_timestamp_ms` for old checkpoints, consuming excessive validator resources.
-    *   **Mitigation:** The gas cost for `get_timestamp_ms` must include a variable component that scales with the age of the requested checkpoint (`current_checkpoint - requested_checkpoint`), making deep historical queries economically infeasible for attackers.
-2.  **Validator State Bloat:** Requiring validators to store an infinite history of checkpoint metadata is unsustainable and would increase centralization pressure.
-    *   **Mitigation:** The protocol must define and enforce a fixed-size, sliding window for the on-chain accessible history (e.g., the last 2-4 million checkpoints). Data older than this window would be pruned and only accessible via off-chain archival solutions.
-3.  **Algorithmic Complexity of `largest_checkpoint_gap_in_history_window`:** A naive implementation of this function could be computationally expensive, creating a DoS vector.
-    *   **Mitigation:** The native implementation must use an efficient sliding window algorithm (e.g., using a deque) as described in the Rationale. This ensures the calculation is near-constant time and does not create a computational bottleneck for validators.
-4.  **Algorithmic Complexity of `largest_checkpoint_gap_since_sequence_number`:** This function performs a scan proportional to the number of checkpoints requested (N = last_finalized_sequence_number - start_sequence_number). A very large N could lead to high resource consumption.
-    *   **Mitigation:** Implementing `largest_checkpoint_gap_since_sequence_number`natively as a Segment Tree for O(log W)  complexity.
+1. **Denial-of-Service (DoS) via Resource Exhaustion:** A malicious actor could call `largest_commit_gap_between` with a very large time range.
+   * **Mitigation:** Gas cost should scale with the size of the time range queried. The protocol should enforce a maximum queryable range.
+
+2. **Validator State Bloat:** Requiring validators to store infinite history is unsustainable.
+   * **Mitigation:** The protocol defines a fixed-size history window (e.g., last 2-4 million commits). Data older than this window is pruned and only accessible via off-chain archival solutions.
+
+3. **Median Computation Cost:** Computing median over millions of data points could be expensive.
+   * **Mitigation:** Cache the median value and update it at checkpoint boundaries rather than computing on every call. On crash recovery, recompute once from the bounded history window.
 
 ## Copyright
 
