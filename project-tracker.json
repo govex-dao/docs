@@ -3,6 +3,7 @@
     {
       "date": "2026-01-05",
       "tasks": [
+        "resolve all TODOs throughout codebase",
         "deploy frontend",
         "Trading UI: Graph (v1)",
         "Trading UI: Swap (gRPC call / simulator), coin amounts"
