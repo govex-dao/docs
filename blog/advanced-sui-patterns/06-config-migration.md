@@ -131,7 +131,7 @@ let config: &FutarchyConfigV2 = account::config(account);
 
 ## Source Code
 
-- [account.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/account.move)
+- [account.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/account.move)
 
 ---
 

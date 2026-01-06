@@ -85,8 +85,8 @@ It is the only way to maintain a 1:N "Quantum Invariant" across an arbitrary num
 
 ## Source Code
 
-- [split_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_operations/sources/split_operations.move)
-- [merge_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_operations/sources/merge_operations.move)
+- [split_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_operations/sources/split_operations.move)
+- [merge_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_operations/sources/merge_operations.move)
 
 ---
 

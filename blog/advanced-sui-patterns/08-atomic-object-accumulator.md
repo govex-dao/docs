@@ -236,9 +236,9 @@ This pattern:
 
 ## Source Code
 
-- [proposal.move - begin_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_core/sources/proposal.move#L1220)
-- [proposal.move - add_outcome_coins_10](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_core/sources/proposal.move#L1542)
-- [proposal.move - finalize_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_core/sources/proposal.move#L1688)
+- [proposal.move - begin_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1220)
+- [proposal.move - add_outcome_coins_10](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1542)
+- [proposal.move - finalize_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1688)
 
 ---
 

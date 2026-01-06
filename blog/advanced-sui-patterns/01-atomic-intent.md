@@ -64,8 +64,8 @@ This pattern ensures:
 
 ## Source Code
 
-- [executable.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/executable.move)
-- [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/executable_resources.move)
+- [executable.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable.move)
+- [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable_resources.move)
 
 ---
 

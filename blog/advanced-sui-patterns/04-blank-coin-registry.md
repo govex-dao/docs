@@ -232,7 +232,7 @@ Until one of these exists, the Blank Coins Registry remains the only way to achi
 
 ## Source Code
 
-- [blank_coins.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_one_shot_utils/sources/blank_coins.move)
+- [blank_coins.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_one_shot_utils/sources/blank_coins.move)
 
 ---
 

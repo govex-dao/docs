@@ -193,9 +193,9 @@ After:
 
 ## Source Code
 
-- [sponsorship_auth.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_core/sources/sponsorship_auth.move)
-- [dissolution_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_actions/sources/dissolution/dissolution_actions.move)
-- [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/package_registry.move)
+- [sponsorship_auth.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/sponsorship_auth.move)
+- [dissolution_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/dissolution/dissolution_actions.move)
+- [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/package_registry.move)
 
 ---
 

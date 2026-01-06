@@ -93,8 +93,8 @@ This pattern ensures:
 
 ## Source Code
 
-- [executable.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/executable.move)
-- [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/executable_resources.move)
+- [executable.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable.move)
+- [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable_resources.move)
 
 ---
 
@@ -172,8 +172,8 @@ let cap: &mut TreasuryCap<T> = dynamic_field::borrow_mut(&mut escrow.id, AssetCa
 
 ## Source Code
 
-- [conditional_balance.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_primitives/sources/conditional/conditional_balance.move)
-- [coin_escrow.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_primitives/sources/conditional/coin_escrow.move)
+- [conditional_balance.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_primitives/sources/conditional/conditional_balance.move)
+- [coin_escrow.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_primitives/sources/conditional/coin_escrow.move)
 
 ---
 
@@ -265,8 +265,8 @@ It is the only way to maintain a 1:N "Quantum Invariant" across an arbitrary num
 
 ## Source Code
 
-- [split_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_operations/sources/split_operations.move)
-- [merge_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_operations/sources/merge_operations.move)
+- [split_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_operations/sources/split_operations.move)
+- [merge_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_operations/sources/merge_operations.move)
 
 ---
 
@@ -505,7 +505,7 @@ Until one of these exists, the Blank Coins Registry remains the only way to achi
 
 ## Source Code
 
-- [blank_coins.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_one_shot_utils/sources/blank_coins.move)
+- [blank_coins.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_one_shot_utils/sources/blank_coins.move)
 
 ---
 
@@ -705,9 +705,9 @@ After:
 
 ## Source Code
 
-- [sponsorship_auth.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_core/sources/sponsorship_auth.move)
-- [dissolution_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_actions/sources/dissolution/dissolution_actions.move)
-- [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/package_registry.move)
+- [sponsorship_auth.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/sponsorship_auth.move)
+- [dissolution_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/dissolution/dissolution_actions.move)
+- [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/package_registry.move)
 
 ---
 
@@ -845,7 +845,7 @@ let config: &FutarchyConfigV2 = account::config(account);
 
 ## Source Code
 
-- [account.move](https://github.com/govex-dao/govex/blob/main/packages/move-framework/packages/protocol/sources/account.move)
+- [account.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/account.move)
 
 ---
 
@@ -1031,8 +1031,8 @@ Resource Requests add the hot potato layer for two-phase execution (request → 
 
 ## Source Code
 
-- [resource_requests.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_core/sources/resource_requests.move)
-- [liquidity_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_actions/sources/liquidity/liquidity_actions.move)
+- [resource_requests.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/resource_requests.move)
+- [liquidity_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/liquidity/liquidity_actions.move)
 
 ---
 
@@ -1275,9 +1275,9 @@ This pattern:
 
 ## Source Code
 
-- [proposal.move - begin_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_core/sources/proposal.move#L1220)
-- [proposal.move - add_outcome_coins_10](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_core/sources/proposal.move#L1542)
-- [proposal.move - finalize_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_core/sources/proposal.move#L1688)
+- [proposal.move - begin_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1220)
+- [proposal.move - add_outcome_coins_10](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1542)
+- [proposal.move - finalize_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1688)
 
 ---
 

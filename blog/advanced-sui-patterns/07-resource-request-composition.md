@@ -179,8 +179,8 @@ Resource Requests add the hot potato layer for two-phase execution (request → 
 
 ## Source Code
 
-- [resource_requests.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_core/sources/resource_requests.move)
-- [liquidity_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_actions/sources/liquidity/liquidity_actions.move)
+- [resource_requests.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/resource_requests.move)
+- [liquidity_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/liquidity/liquidity_actions.move)
 
 ---
 

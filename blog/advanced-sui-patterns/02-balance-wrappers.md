@@ -71,8 +71,8 @@ let cap: &mut TreasuryCap<T> = dynamic_field::borrow_mut(&mut escrow.id, AssetCa
 
 ## Source Code
 
-- [conditional_balance.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_primitives/sources/conditional/conditional_balance.move)
-- [coin_escrow.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy_markets_primitives/sources/conditional/coin_escrow.move)
+- [conditional_balance.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_primitives/sources/conditional/conditional_balance.move)
+- [coin_escrow.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_primitives/sources/conditional/coin_escrow.move)
 
 ---
 
