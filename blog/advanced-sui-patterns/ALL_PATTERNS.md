@@ -1,19 +1,21 @@
 # Advanced Sui Design Patterns
 
-A series exploring Move patterns developed for the Govex futarchy protocol.
+*A series exploring Move patterns developed for the [Govex](https://github.com/govex-dao/govex) futarchy protocol.*
 
-## The Series
+---
+
+## Table of Contents
 
 | # | Pattern | Problem Solved | Category |
 |---|---------|----------------|----------|
-| 1 | [Atomic Intent](./01-atomic-intent.md) | Object Stealing / Parameter Injection | Security |
-| 2 | [Balance Wrappers](./02-balance-wrappers.md) | Type Explosion with N outcomes | Scaling |
-| 3 | [Iterative Hot Potato](./03-iterative-hot-potato.md) | Generic Loop Constraints | Move Limitations |
-| 4 | [Blank Coins](./04-blank-coin-registry.md) | Runtime Coin Type Creation | Infrastructure |
-| 5 | [Registry-Validated Witness](./05-registry-validated-witness.md) | Dynamic Package Authorization | Authorization |
-| 6 | [Config Migration](./06-config-migration.md) | Zero-Downtime Schema Upgrades | Upgradability |
-| 7 | [Resource Request Composition](./07-resource-request-composition.md) | In-Flight Asset Staging | Composition |
-| 8 | [Atomic Object Accumulator](./08-atomic-object-accumulator.md) | Constructor Argument Limits | Scalability |
+| 1 | [Atomic Intent](#1-the-atomic-intent-pattern) | Object Stealing / Parameter Injection | Security |
+| 2 | [Balance Wrappers](#2-balance-wrappers) | Type Explosion with N outcomes | Scaling |
+| 3 | [Iterative Hot Potato](#3-the-iterative-hot-potato) | Generic Loop Constraints | Move Limitations |
+| 4 | [Blank Coins](#4-the-blank-coins-pattern) | Runtime Coin Type Creation | Infrastructure |
+| 5 | [Registry-Validated Witness](#5-registry-validated-witness) | Dynamic Package Authorization | Authorization |
+| 6 | [Config Migration](#6-config-migration) | Zero-Downtime Schema Upgrades | Upgradability |
+| 7 | [Resource Request Composition](#7-resource-request-composition) | In-Flight Asset Staging | Composition |
+| 8 | [Atomic Object Accumulator](#8-the-atomic-object-accumulator) | Constructor Argument Limits | Scalability |
 
 ## Why These Patterns?
 
@@ -24,14 +26,11 @@ Building futarchy governance on Sui required solving problems at the intersectio
 
 Each pattern addresses a fundamental limitation in Sui/Move development.
 
-## Source Code
-
-All patterns are implemented in the [Govex repository](https://github.com/govex-dao/govex).
-# Preventing Object Stealing in Sui PTBs: The Atomic Intent Pattern
-
-*Part 1 of the [Advanced Sui Design Patterns](./README.md) series*
-
 ---
+
+# 1. The Atomic Intent Pattern
+
+*Preventing Object Stealing in Sui PTBs*
 
 Traditional governance execution relies on "God Dispatchers" or passing arbitrary bytes to a VM, which are vulnerable to parameter injection and "Object Stealing" in a Programmable Transaction Block (PTB).
 
@@ -91,21 +90,17 @@ This pattern ensures:
 - **No object stealing**: Objects stay in the bag until explicitly retrieved
 - **Atomic execution**: Hot potato forces same-transaction completion
 
-## Source Code
-
+**Source Code:**
 - [executable.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable.move)
 - [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable_resources.move)
 
 ---
 
-*Next: [Balance Wrappers: Scalable Type Erasure](./02-balance-wrappers.md)*
-# Balance Wrappers: Scalable Type Erasure for Multi-Outcome Markets
+# 2. Balance Wrappers
 
-*Part 2 of the [Advanced Sui Design Patterns](./README.md) series*
+*Scalable Type Erasure for Multi-Outcome Markets*
 
----
-
-Futarchy requires $N$ outcomes. In Move, defining `Pool<T0, T1...TN>` leads to **Type Explosion**, making code unmanageable as $N$ grows.
+Futarchy requires N outcomes. In Move, defining `Pool<T0, T1...TN>` leads to **Type Explosion**, making code unmanageable as N grows.
 
 ## The Problem
 
@@ -170,19 +165,15 @@ let cap: &mut TreasuryCap<T> = dynamic_field::borrow_mut(&mut escrow.id, AssetCa
 - **Composable**: External protocols get typed coins they expect
 - **Zero type parameter explosion**: Core logic uses 2 phantom types max
 
-## Source Code
-
+**Source Code:**
 - [conditional_balance.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_primitives/sources/conditional/conditional_balance.move)
 - [coin_escrow.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_primitives/sources/conditional/coin_escrow.move)
 
 ---
 
-*Next: [The Iterative Hot Potato: PTB Loop Unrolling](./03-iterative-hot-potato.md)*
-# The Iterative Hot Potato: PTB Loop Unrolling
+# 3. The Iterative Hot Potato
 
-*Part 3 of the [Advanced Sui Design Patterns](./README.md) series*
-
----
+*PTB Loop Unrolling*
 
 Move generics are static. You cannot write a loop that interacts with a variable number of unique types (e.g., `Coin<T0>`, `Coin<T1>`).
 
@@ -254,7 +245,7 @@ ptb.moveCall({ target: 'pkg::split::finalize', arguments: [progress] });
 
 ## Why This Matters
 
-This pattern allows **Dynamic Runtime Logic** (handling $N$ outcomes) to coexist with **Static Compile-Time Safety** (generic type parameters).
+This pattern allows **Dynamic Runtime Logic** (handling N outcomes) to coexist with **Static Compile-Time Safety** (generic type parameters).
 
 - **Enforces completeness**: Can't skip an outcome
 - **Enforces order**: Must process sequentially
@@ -263,19 +254,15 @@ This pattern allows **Dynamic Runtime Logic** (handling $N$ outcomes) to coexist
 
 It is the only way to maintain a 1:N "Quantum Invariant" across an arbitrary number of conditional markets without hitting Move's type-parameter limits.
 
-## Source Code
-
+**Source Code:**
 - [split_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_operations/sources/split_operations.move)
 - [merge_operations.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_operations/sources/merge_operations.move)
 
 ---
 
-*Next: [Dynamic Coin Acquisition: The Blank Coins Pattern](./04-blank-coin-registry.md)*
-# Dynamic Coin Acquisition: The Blank Coins Pattern
+# 4. The Blank Coins Pattern
 
-*Part 4 of the [Advanced Sui Design Patterns](./README.md) series*
-
----
+*Dynamic Coin Acquisition*
 
 Sui coin types must be defined at compile time. You cannot create `Coin<MyNewToken>` dynamically at runtime. This is a fundamental limitation for protocols that need N conditional token types per proposal.
 
@@ -503,18 +490,14 @@ This pattern exists because Sui/Move lacks runtime type capabilities. Potential 
 
 Until one of these exists, the Blank Coins Registry remains the only way to achieve single-transaction dynamic coin acquisition on Sui.
 
-## Source Code
-
+**Source Code:**
 - [blank_coins.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_one_shot_utils/sources/blank_coins.move)
 
 ---
 
-*Next: [Runtime Package Authorization via Type Introspection](./05-registry-validated-witness.md)*
-# Runtime Package Authorization via Type Introspection
+# 5. Registry-Validated Witness
 
-*Part 5 of the [Advanced Sui Design Patterns](./README.md) series*
-
----
+*Runtime Package Authorization via Type Introspection*
 
 Move's witness pattern provides compile-time authorization, but what if you need to authorize packages dynamically? Govex solves this with runtime type introspection against a registry.
 
@@ -657,21 +640,21 @@ public fun redeem<Config: store, AssetType, RedeemCoinType>(
 
 ```
 User calls redeem()
-        │
-        ▼
-┌──────────────────────────────┐
-│  dissolution_actions module  │
-│  - validates capability      │
-│  - burns user's tokens       │
-│  - creates DissolutionWitness│
-└──────────────────────────────┘
-        │
-        ▼ (passes witness)
-┌──────────────────────────────┐
-│       vault module           │
-│  - checks witness package    │
-│  - executes withdrawal       │
-└──────────────────────────────┘
+        |
+        v
++------------------------------+
+|  dissolution_actions module  |
+|  - validates capability      |
+|  - burns user's tokens       |
+|  - creates DissolutionWitness|
++------------------------------+
+        |
+        v (passes witness)
++------------------------------+
+|       vault module           |
+|  - checks witness package    |
+|  - executes withdrawal       |
++------------------------------+
 ```
 
 - **Users** can call `redeem()` freely
@@ -694,29 +677,25 @@ This pattern also solves a structural problem: when `package_A` needs to authori
 
 ```
 Before:
-  futarchy_markets_core ←→ futarchy_governance (circular!)
+  futarchy_markets_core <-> futarchy_governance (circular!)
 
 After:
   futarchy_core (leaf, has sponsorship_auth)
-       ↑                    ↑
+       ^                    ^
   futarchy_markets_core    futarchy_governance
        (uses auth)         (creates auth)
 ```
 
-## Source Code
-
+**Source Code:**
 - [sponsorship_auth.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/sponsorship_auth.move)
 - [dissolution_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/dissolution/dissolution_actions.move)
 - [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/package_registry.move)
 
 ---
 
-*Next: [Config Migration with TypeName Tracking](./06-config-migration.md)*
-# Config Migration with TypeName Tracking
+# 6. Config Migration
 
-*Part 6 of the [Advanced Sui Design Patterns](./README.md) series*
-
----
+*TypeName Tracking for Zero-Downtime Schema Upgrades*
 
 How do you upgrade a DAO's config schema without breaking existing intents or requiring account recreation? Govex tracks config types at runtime using TypeName, enabling safe migrations.
 
@@ -843,18 +822,14 @@ let config: &FutarchyConfigV2 = account::config(account);
 3. **Version witness**: Ensure authorized packages only
 4. **Type tracking**: Always update ConfigTypeKey
 
-## Source Code
-
+**Source Code:**
 - [account.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/account.move)
 
 ---
 
-*Next: [Resource Request Composition](./07-resource-request-composition.md)*
-# Resource Request Composition: In-Flight Asset Staging
+# 7. Resource Request Composition
 
-*Part 7 of the [Advanced Sui Design Patterns](./README.md) series*
-
----
+*In-Flight Asset Staging*
 
 Complex governance actions often need assets to flow between multiple operations within a single transaction. Govex uses Resource Requests to stage assets in-flight without intermediate vault deposits.
 
@@ -863,11 +838,11 @@ Complex governance actions often need assets to flow between multiple operations
 Consider a liquidity rebalance: remove LP from Pool A, add to Pool B. The naive approach:
 
 ```move
-// Step 1: Remove liquidity → coins go to vault
+// Step 1: Remove liquidity -> coins go to vault
 vault::deposit(vault, asset_coin);
 vault::deposit(vault, stable_coin);
 
-// Step 2: Withdraw from vault → add to new pool
+// Step 2: Withdraw from vault -> add to new pool
 let asset = vault::withdraw(vault, ...);
 let stable = vault::withdraw(vault, ...);
 pool_b::add_liquidity(asset, stable);
@@ -898,7 +873,7 @@ public struct ResourceReceipt<phantom T> has drop {
 }
 ```
 
-### The Flow: Request → Fulfill
+### The Flow: Request -> Fulfill
 
 **Step 1: Action returns a request**
 
@@ -1018,7 +993,7 @@ const addReceipt = ptb.moveCall({
 - **Type-safe**: Phantom types ensure correct pairing
 - **Flexible**: Dynamic fields in context allow any data
 
-**Note:** This pattern applies to any resource flow between PTB steps—owned objects, coins, gaming items (Ore → Bar → Sword), flash loans. The core insight: use the hot potato's dynamic fields as a temporary carrier bag.
+**Note:** This pattern applies to any resource flow between PTB steps—owned objects, coins, gaming items (Ore -> Bar -> Sword), flash loans. The core insight: use the hot potato's dynamic fields as a temporary carrier bag.
 
 ## vs. Executable Resources Alone
 
@@ -1027,21 +1002,17 @@ const addReceipt = ptb.moveCall({
 | Executable Resources | Simple staging within one action |
 | Resource Requests | Multi-action composition with deferred execution |
 
-Resource Requests add the hot potato layer for two-phase execution (request → fulfill), which is useful when the action definition and resource provision are separate steps.
+Resource Requests add the hot potato layer for two-phase execution (request -> fulfill), which is useful when the action definition and resource provision are separate steps.
 
-## Source Code
-
+**Source Code:**
 - [resource_requests.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/resource_requests.move)
 - [liquidity_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/liquidity/liquidity_actions.move)
 
 ---
 
-*Next: [Atomic Object Accumulator](./08-atomic-object-accumulator.md)*
-# The Atomic Object Accumulator: Scalable Heterogeneous Construction
+# 8. The Atomic Object Accumulator
 
-*Part 8 of the [Advanced Sui Design Patterns](./README.md) series*
-
----
+*Scalable Heterogeneous Construction*
 
 While Pattern #3 (Iterative Hot Potato) handles logic loops (doing X operation N times), this pattern handles **construction scalability**: building an object that requires more resources than a single function call can accept.
 
@@ -1074,13 +1045,13 @@ Two hard walls:
 Split creation into three atomic phases within a single Programmable Transaction Block (PTB):
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                         Single PTB                               │
-├─────────────────────────────────────────────────────────────────┤
-│  1. BEGIN         → Create unshared object with empty Bags      │
-│  2. ACCUMULATE    → Call add_outcome N times (heterogeneous)    │
-│  3. FINALIZE      → Validate completeness, create AMMs, share   │
-└─────────────────────────────────────────────────────────────────┘
++------------------------------------------------------------------+
+|                         Single PTB                                |
++------------------------------------------------------------------+
+|  1. BEGIN         -> Create unshared object with empty Bags       |
+|  2. ACCUMULATE    -> Call add_outcome N times (heterogeneous)     |
+|  3. FINALIZE      -> Validate completeness, create AMMs, share    |
++------------------------------------------------------------------+
 ```
 
 ### Phase 1: The Empty Bucket
@@ -1273,12 +1244,11 @@ This pattern:
 3. **Type safety**: Phantom type keys ensure correct coin pairing
 4. **Idempotent validation**: Each outcome index can only be registered once
 
-## Source Code
-
+**Source Code:**
 - [proposal.move - begin_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1220)
 - [proposal.move - add_outcome_coins_10](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1542)
 - [proposal.move - finalize_proposal](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_markets_core/sources/proposal.move#L1688)
 
 ---
 
-*End of series. [Back to README](./README.md)*
+*All patterns are implemented in the [Govex repository](https://github.com/govex-dao/govex).*

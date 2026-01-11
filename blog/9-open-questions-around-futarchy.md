@@ -1,29 +1,21 @@
-9 Open Questions around Futarchy
+# 10 Open Questions in Futarchy
 
-1) What is a fair team sponsorship percentage. 99% confidence interval that decision wasn't random noise?
+1. What is a fair sponsorship threshold? Enough to give statistical confidence the decision wasn't noise?
 
-Does it depend on founder shoudl we just start it at +-3 % for everyone. Do team have a moral imperative to set most deicions to 0% threshold if its not clearly malicious?
+2. Is it legal / fair / moral to trade in decision markets that directly impact you? Require disclosure before trading? [More here](https://medium.com/collab-currency/7-lessons-testament-of-a-futarchy-trader-2d7cc43b1323).
 
-2) Is it legal / fair / moral to trade in decision markets that directly impact you? Maybe founder must just disclose all information before.
+3. What actions is futarchy alone not suitable for? [Umbra Research](https://www.umbraresearch.xyz/writings/futarchy) flags custodial relationships, e.g. lending protocol upgrades.
 
-(link to Arad stuff maybe his psot or a blog)
+4. Is it a slow rug if team doesn't work for the LLC that owns the IP, or a company 100% owned by that LLC?
 
-3) What actions is futarchy alone not suitable to handle? Umbra research e.g lending protocol upgrades.
+5. Does futarchy require open-book management? How much information do LLC governance markets need?
 
-4) Is it a slow rug if team doesn't work for LLC that owns that IP or a company that is 100% owned by the IP LLC
+6. Should markets have the right to dictate implementation details of a task?
 
-5) Does futarachy require open book management? Market information etc. How much information do the markets need.
+7. Legal IP structure: founder veto on IP transfers? IP returns to founder if DAO winds down in year one? Independent arbitrator for gross negligence?
 
-6) Should the markets be expected to / have the right to dictate the implementation details of any task.
+8. Should we build for AIs or human entrepreneurs? Who are the new elites? ([Hanson originally raised](https://www.overcomingbias.com/p/we-need-elites-to-value-adaption) adoption-by-elites as a core barrier to futarchy.)
 
-7) Futarchy and legal IP structure: I have been thinking for the launchpad the legal structure should be set up such that founder should have legal write to veto all IP transfer to third parties. I DAO winds down in frirst year founder gets IP back. Need maybe independant pre approved arbitor for gross negligence cases?
+9. [Commitment issue](https://www.overcomingbias.com/p/futarchy-details) (Hanson): No incentive to price proposals REJECT/ACCEPT differently if they can be recreated a day later. Should there be cultural norms for the core team to only sponsor unique proposals? No duplicate proposals within a short time frame?
 
-is it even realistic to
-
-8) Build for AI's or for humans tech entrepeneurs? Who are the new elites ( hanson futarchy adoption by elites problem core issue with futar)
-
-9) Commitment issue hanson ( no incentive to price proposals reject accept differntly if can be recreated redacted a day later).
-Should have clutral more for core team to only sponsor a unique proposals. Not duplicate proposals within a shot time frame??
-
-10) Do teams have moral obligation to sponsor proposals to 0 twap threshold that are not attacks.
-
+10. Do teams have a moral obligation to sponsor legitimate proposals that can't reach threshold on their own?
