@@ -24,12 +24,19 @@ Solana’s architecture requires every account to be declared before execution. 
 Sui's object model allows the DAO state to live *inside* the AMM as a nested object. This enables atomic operations that would require complex cross-program invocations on Solana:
 
 *   **Atomic arbitrage** — Mint/burn conditional tokens and rebalance liquidity in a single transaction
-*   **NAV calculation** — LP valuation reads DAO treasury state directly, no oracle needed
+*   **NAV actions** — LP valuation reads DAO treasury state directly, no oracle needed
 *   **Unified state** — Market and governance share the same object graph, eliminating synchronization bugs
 
 On Solana, the DAO treasury and AMM are separate programs with separate accounts. Every interaction requires CPI, careful account passing, and trust assumptions about state consistency.
 
-### 4. Governance DSL vs. Arbitrary Instructions
+### 4. Strategic Horizons: Tuning for Signal
+Market-based reasoning requires time to filter noise from signal. This is a matter of physics: research into **Causal Entropic Forces [1]** suggests that a system’s "intelligence" is a function of its **causal horizon (τ)**—its ability to maximize future optionality.
+
+While current futarchy models use a static window, Govex’s **Action Registry** provides the foundation for **Tiered Settlement Horizons**. Because every action is a strictly typed struct, the protocol can eventually enforce settlement times that match the gravity of the decision:
+*   **Operational (e.g., 3-Day):** Fast-path execution for low-risk, tactical tweaks.
+*   **Strategic (e.g., 3-90-Day):** Long-settlement windows for existential pivots, forcing speculators to price in **long-term path entropy** rather than short-term noise.
+
+### 5. Governance DSL vs. Arbitrary Instructions
 MetaDAO's architecture relies on two patterns: intents, e.g., specific validation for `spending_limit_change` and arbitrary instruction execution available as a fallback.
 
 Govex is a **Governance DSL (Domain Specific Language)**. With 70+ pre-built, type-safe actions, the framework provides a consistent security boundary. To replicate this on Solana, a developer would need to implement a mini-VM within Rust to simulate Move's resource linearity and type safety—a task that is architecturally incompatible with Solana's static account requirements.
@@ -59,7 +66,10 @@ On Solana, this would require separate transactions, external price feeds, and c
 By 2027, we expect lifecycle hooks and automated treasury operations to be table stakes for serious governance infrastructure. The platforms that can support them will pull ahead; those that can't will be limited to simple binary pass/fail execution.
 
 ### Conclusion
-The architecture gap between Govex and MetaDAO is a matter of **Platform Primitives**. MetaDAO is forced to fight the Solana environment to create safety, whereas Govex leverages Sui's **Object Model**, **Linear Logic**, and **PTB Atomicity** to make safety a native property of the protocol. For high-assurance decentralized governance, Govex is path forward.
+The architecture gap between Govex and MetaDAO is a matter of **Platform Primitives**. MetaDAO is forced to fight the Solana environment to create safety, whereas Govex leverages Sui's **Object Model**, **Linear Logic**, and **PTB Atomicity** to make safety a native property of the protocol. For high-assurance decentralized governance, Govex is the path forward.
+
+**References**
+[1] Wissner-Gross, A. D., & Freer, C. E. (2013). **Causal Entropic Forces**. *Physical Review Letters*, 110(16), 168702. [DOI: 10.1103/PhysRevLett.110.168702]
 
 ---
 

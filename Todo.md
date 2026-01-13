@@ -432,6 +432,8 @@ like walrus deep book and leading lending protocols etc
 main ones on defi lama that are new! Deepbook, walrus, jose, account tech, big ones on defillama
 
 # Consider for V3
+- [ ] abillity to stream directly into a vesting object so that team alwasy has guarenteed 3 months runway ahead of them?
+or use vault with higher threshold
 - [ ] hooks during each stage of proposal, optional for each dao says create proposal with markets etc etc
 - [ ] Have on reject actions that run every time like autosyncing twap observation to winning outcome ( reject) if multiple proposal reject back to back no twap sync currently
 - [ ] full pass through conditional spot LP positions???
