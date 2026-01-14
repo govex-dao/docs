@@ -1,1 +1,0 @@
-premium or Pro verified gold tick DAO by sending us compnay operating agreement

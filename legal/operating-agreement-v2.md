@@ -43,9 +43,9 @@ For the purposes of this Agreement:
 
 I.1 **Organization.** The Member, by executing this Agreement, hereby agrees to organize as a Marshall Islands algorithmically managed decentralized autonomous organization limited liability company (**"DAO LLC"**) under the provisions of the DAO Act, the LLC Act, and the BCA upon the terms set forth in this Agreement.
 
-I.2 **Decentralized Autonomous Organization.** The Company is a decentralized autonomous organization within the meaning of §102(c) and §104(1) and (3) of the DAO Act, whereby the notice of restrictions on duties and transfers appears conspicuously at the beginning of this Agreement.
+I.2 **Decentralized Autonomous Organization.** The Company is a decentralized autonomous organization within the meaning of the DAO Act, whereby the notice of restrictions on duties and transfers appears conspicuously at the beginning of this Agreement.
 
-I.3 **Registered Office; Registered Agent.**  The registered office of the Company in the Marshall Islands shall be the initial registered office designated in the Certificate of Formation or such other office (which need not be a place of business of the Company) as provided by law. The registered agent of the Company in the Marshall Islands shall be the initial registered agent designated in the Certificate of Formation.
+I.3 **Registered Office; Registered Agent.** The registered office of the Company in the Marshall Islands shall be the initial registered office designated in the Certificate of Formation or such other office (which need not be a place of business of the Company) as provided by law. The registered agent of the Company in the Marshall Islands shall be the initial registered agent designated in the Certificate of Formation.
 
 I.4 **Principal Office.** The Principal Office of the Company shall be at the principal office designated in the Certificate of Formation or at such other location as the Member may designate from time to time, which need not be in the Marshall Islands. The Official Online Venue shall be the Govex Discord Channel [https://discord.com/channels/1314531947590193212/1314531948772720642](https://discord.com/channels/1314531947590193212/1314531948772720642).
 
@@ -117,7 +117,7 @@ V.2 **Member Emergency Powers.** Notwithstanding V.1, the Member retains the rig
 
 (a) Make decisions concerning the business affairs of the Company when:
    1. The Algorithmic Management is unable to function due to technical failures, bugs, or edge cases;
-   2. A decision is required for interfacing with legacy or offline institutions, provided such decision does not involve an unapproved transfer of material Company assets;
+   2. A decision is required for interfacing with legacy or offline institutions;
    3. Immediate action is necessary to protect the Company from material harm;
    4. Implementation of a Futarchy outcome would require offchain actions that violate applicable law in any relevant jurisdiction. The Member shall refuse to implement any such offchain actions. Onchain actions executed by the Smart Contracts are final.
 
@@ -143,7 +143,7 @@ VI.1 Required Records. The following records shall be kept and maintained at the
 1. A copy of the Certificate of Formation and all amendments thereto;
 2. A copy of this Agreement, including all amendments thereto;
 3. Accounting records and financial statements of the Company;
-4. As long as actions, transactions, proposal trading, and decisions of the Company take place on a distributed ledger and where human-readable explanations of those actions, transactions, proposal trading, and decisions are publicly available for a period of five (5) years after the date the Company is dissolved, in accordance with the DAO Act, there shall be no separate requirement to keep books of accounts.
+4. Records of proposals and outcomes from the Futarchic Management System.
 
 VI.2 **No Separate Rights to Access Public Information.** In accordance with §111 of the DAO Act, except for relevant government officials with reasonable grounds to investigate a violation of the laws of the Marshall Islands, no one shall have the right to demand to separately inspect or copy records of the Company to the extent the information is publicly available on a distributed ledger or official online venues.
 
@@ -221,8 +221,9 @@ XII.5 **No Third-Party Rights.** This Agreement does not and is not intended to 
 
 **IN WITNESS WHEREOF**, the sole Member has executed this Agreement effective as of the Effective Date.
 
-**COMPANY:**
+**MEMBER:**
 
 Govex DAO LLC
 
-By: Greshams Code
+By: ______________________________________
+Sole Member
