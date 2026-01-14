@@ -71,7 +71,7 @@ II.4 **No Distributions to Market Participants.** The Company shall not distribu
 
 **MEMBERSHIP**
 
-III.1 **Sole Member.** The Company shall have a single Member who is the sole owner of the Company and holds 100% of the membership interest.
+III.1 **Sole Member.** The Company shall have a single Member who is the sole owner of the Company and holds 100% of the membership interest. The name of the Member is set forth in **Exhibit A**.
 
 III.2 **Member's Commitment to Futarchy.** The Member hereby irrevocably commits the Company to follow the outcomes of the Futarchic Management System as described in Article V, except where emergency powers under Article V.2 are exercised. This commitment is a binding obligation of the Member and the Company.
 
@@ -221,9 +221,18 @@ XII.5 **No Third-Party Rights.** This Agreement does not and is not intended to 
 
 **IN WITNESS WHEREOF**, the sole Member has executed this Agreement effective as of the Effective Date.
 
-**MEMBER:**
+**COMPANY:**
 
 Govex DAO LLC
 
-By: ______________________________________
-Sole Member
+By: Greshams Code
+
+---
+
+**EXHIBIT A**
+
+**SOLE MEMBER:**
+
+| Member | Membership Interest |
+| :----- | :------------------ |
+| Greshams Code | 100% |

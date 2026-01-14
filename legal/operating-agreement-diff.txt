@@ -92,8 +92,8 @@ index 7f4fc15..2411bbc 100644
 -III.2 **Initial Members.**  The names and addresses or Digital Ledger identifiers of the Initial Members and Managing Members are as reflected in “Exhibit A” attached hereto and made a part hereof as if set forth fully herein.	
 +**MEMBERSHIP**
  
--III.3 **Classes of Membership.**  The Company shall have one class of Members. 
-+III.1 **Sole Member.** The Company shall have a single Member who is the sole owner of the Company and holds 100% of the membership interest.
+-III.3 **Classes of Membership.**  The Company shall have one class of Members.
++III.1 **Sole Member.** The Company shall have a single Member who is the sole owner of the Company and holds 100% of the membership interest. The name of the Member is set forth in **Exhibit A**.
  
 -**ARTICLE IV**                
 +III.2 **Member's Commitment to Futarchy.** The Member hereby irrevocably commits the Company to follow the outcomes of the Futarchic Management System as described in Article V, except where emergency powers under Article V.2 are exercised. This commitment is a binding obligation of the Member and the Company.
@@ -336,7 +336,14 @@ index 7f4fc15..2411bbc 100644
  
 +Govex DAO LLC
  
--  
-\ No newline at end of file
 +By: [INSERT NAME]
-\ No newline at end of file
+
++---
+
++**EXHIBIT A**
+
++**SOLE MEMBER:**
+
++| Member | Membership Interest |
++| :----- | :------------------ |
++| [INSERT NAME] | 100% |
