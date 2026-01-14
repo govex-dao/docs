@@ -225,7 +225,7 @@ XII.5 **No Third-Party Rights.** This Agreement does not and is not intended to 
 
 Govex DAO LLC
 
-By: Greshams Code
+By: [Insert Name]
 
 ---
 
@@ -235,4 +235,4 @@ By: Greshams Code
 
 | Member | Membership Interest |
 | :----- | :------------------ |
-| Greshams Code | 100% |
+| [Insert Name]| 100% |
