@@ -47,7 +47,7 @@ I.2 **Decentralized Autonomous Organization.** The Company is a decentralized au
 
 I.3 **Registered Office; Registered Agent.** The registered office of the Company in the Marshall Islands shall be the initial registered office designated in the Certificate of Formation or such other office (which need not be a place of business of the Company) as provided by law. The registered agent of the Company in the Marshall Islands shall be the initial registered agent designated in the Certificate of Formation.
 
-I.4 **Principal Office.** The Principal Office of the Company shall be at the principal office designated in the Certificate of Formation or at such other location as the Member may designate from time to time, which need not be in the Marshall Islands. The Official Online Venue shall be the Govex Discord Channel [https://discord.com/channels/1314531947590193212/1314531948772720642](https://discord.com/channels/1314531947590193212/1314531948772720642).
+I.4 **Principal Office.** The Principal Office of the Company shall be at the principal office designated in the Certificate of Formation.
 
 I.5 **Term.** The Company shall commence upon the date of the filing of the Certificate of Formation and shall continue in existence until dissolved pursuant to this Agreement.
 
