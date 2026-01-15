@@ -91,8 +91,8 @@ This pattern ensures:
 - **Atomic execution**: Hot potato forces same-transaction completion
 
 **Source Code:**
-- [executable.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable.move)
-- [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/executable_resources.move)
+- [executable.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/protocol/sources/executable.move)
+- [executable_resources.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/protocol/sources/executable_resources.move)
 
 ---
 
@@ -689,7 +689,7 @@ After:
 **Source Code:**
 - [sponsorship_auth.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_core/sources/sponsorship_auth.move)
 - [dissolution_actions.move](https://github.com/govex-dao/govex/blob/main/packages/futarchy/futarchy_actions/sources/dissolution/dissolution_actions.move)
-- [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/package_registry.move)
+- [package_registry.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/protocol/sources/package_registry.move)
 
 ---
 
@@ -823,7 +823,7 @@ let config: &FutarchyConfigV2 = account::config(account);
 4. **Type tracking**: Always update ConfigTypeKey
 
 **Source Code:**
-- [account.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/packages/protocol/sources/account.move)
+- [account.move](https://github.com/govex-dao/govex/blob/main/packages/smart_account/protocol/sources/account.move)
 
 ---
 
